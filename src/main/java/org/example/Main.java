@@ -34,6 +34,21 @@ public class Main {
             throw new RuntimeException(e);
         }
 
+
+        //Para leer este archivo
+        var clase2 = new ArrayList<Alumno>();
+        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("clase.obj"))){
+            clase2=(ArrayList<Alumno>) ois.readObject();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println(clase2);
+
     }
 
 
