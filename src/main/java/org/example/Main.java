@@ -23,7 +23,16 @@ public class Main {
     var clase = new ArrayList<Alumno>();
     clase.add(pablo);
     clase.add(fer);
+
     System.out.println(clase);
+
+    //Para que esto funcione implementar Serializable a la clase Alumno
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("clase.obj"));
+            oos.writeObject(clase);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
