@@ -1,7 +1,1 @@
-[ {
-  "nombre" : "Pablo",
-  "apellido" : "Postigo"
-}, {
-  "nombre" : "Fernando",
-  "apellido" : "Perez"
-} ]
+{"alumnos":[{"nombre":"Pablo","apellido":"Postigo"},{"nombre":"Fernando","apellido":"Perez"}]}

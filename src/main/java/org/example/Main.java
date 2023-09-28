@@ -40,14 +40,7 @@ public class Main {
 
         //Para leer este archivo
         var clase2 = new ArrayList<Alumno>();
-
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("clase.obj"))) {
-            clase2 = (ArrayList<Alumno>) ois.readObject();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        clase2 = leerClase();
 
         System.out.println(clase2);
 
@@ -82,7 +75,19 @@ public class Main {
         }
     }
 
-        private static void guardarClase(ArrayList<Alumno> clase) {
+    private static ArrayList<Alumno> leerClase() {
+        ArrayList<Alumno> clase2;
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("clase.obj"))) {
+            clase2 = (ArrayList<Alumno>) ois.readObject();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return clase2;
+    }
+
+    private static void guardarClase(ArrayList<Alumno> clase) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("clase.obj"))) {
             oos.writeObject(clase);
         } catch (IOException e) {
