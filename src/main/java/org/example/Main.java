@@ -1,6 +1,7 @@
 package org.example;
 
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -16,6 +17,11 @@ public class Main {
             throw new RuntimeException(e);
         }
         config.put("version", "1.0");
+        try {
+            config.store(new FileWriter("database.properties"),"Añadida la version");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         System.out.println(config.get("url"));
         System.out.println(config.get("user"));
