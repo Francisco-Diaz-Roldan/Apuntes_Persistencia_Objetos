@@ -1,5 +1,6 @@
 package org.example;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.model.Alumno;
 
 import java.io.*;
@@ -27,20 +28,20 @@ public class Main {
     System.out.println(clase);
 
     //Para que esto funcione implementar Serializable a la clase Alumno
-        try {
+        /*try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("clase.obj"));
             oos.writeObject(clase);
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
+        }*/
 
+        guardarClase(clase);
 
         //Para leer este archivo
         var clase2 = new ArrayList<Alumno>();
+
         try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("clase.obj"))){
             clase2=(ArrayList<Alumno>) ois.readObject();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
@@ -49,6 +50,25 @@ public class Main {
 
         System.out.println(clase2);
 
+        //Para convertir a json
+        var mapper = new ObjectMapper().writerWithDefaultPrettyPrinter();
+
+        //Creo...
+        try {
+            mapper.writeValue(new File("clase.json"),clase);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }//Como almaceno en un archivo hago u  try/catch
+
+
+    }
+
+    private static void guardarClase(ArrayList<Alumno> clase) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("clase.obj"))) {
+            oos.writeObject(clase);
+        } catch (IOException e) {
+        throw new RuntimeException(e);
+        }
     }
 
 
