@@ -75,6 +75,7 @@ public class Main {
         }
     }
 
+
     private static ArrayList<Alumno> leerClase() {
         ArrayList<Alumno> clase2;
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("clase.obj"))) {
