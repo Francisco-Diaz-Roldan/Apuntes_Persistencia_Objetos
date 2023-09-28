@@ -96,6 +96,7 @@ public class Main {
     }
 
 
+
     public static void main2(String[] args) {
 
         InputStream is = Main.class.getClassLoader().getResourceAsStream("database.properties");
