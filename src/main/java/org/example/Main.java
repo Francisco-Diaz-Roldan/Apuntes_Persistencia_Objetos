@@ -27,20 +27,20 @@ public class Main {
     System.out.println(clase);
 
     //Para que esto funcione implementar Serializable a la clase Alumno
-        try {
+        /*try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("clase.obj"));
             oos.writeObject(clase);
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
+        }*/
 
+        guardarClase(clase);
 
         //Para leer este archivo
         var clase2 = new ArrayList<Alumno>();
+
         try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("clase.obj"))){
             clase2=(ArrayList<Alumno>) ois.readObject();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
@@ -49,6 +49,14 @@ public class Main {
 
         System.out.println(clase2);
 
+    }
+
+    private static void guardarClase(ArrayList<Alumno> clase) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("clase.obj"))) {
+            oos.writeObject(clase);
+        } catch (IOException e) {
+        throw new RuntimeException(e);
+        }
     }
 
 
