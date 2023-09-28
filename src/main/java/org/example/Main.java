@@ -2,6 +2,7 @@ package org.example;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.model.Alumno;
+import org.example.model.Clase;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -13,21 +14,21 @@ public class Main {
 
     public static void main(String[] args) {
 
-    Alumno fer = new Alumno();
-    fer.setNombre("Fernando");
-    fer.setApellido("Perez");
+        Alumno fer = new Alumno();
+        fer.setNombre("Fernando");
+        fer.setApellido("Perez");
 
-    Alumno pablo = new Alumno();
-    pablo.setNombre("Pablo");
-    pablo.setApellido("Postigo");
+        Alumno pablo = new Alumno();
+        pablo.setNombre("Pablo");
+        pablo.setApellido("Postigo");
 
-    var clase = new ArrayList<Alumno>();
-    clase.add(pablo);
-    clase.add(fer);
+        var clase = new ArrayList<Alumno>();
+        clase.add(pablo);
+        clase.add(fer);
 
-    System.out.println(clase);
+        System.out.println(clase);
 
-    //Para que esto funcione implementar Serializable a la clase Alumno
+        //Para que esto funcione implementar Serializable a la clase Alumno
         /*try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("clase.obj"));
             oos.writeObject(clase);
@@ -40,8 +41,8 @@ public class Main {
         //Para leer este archivo
         var clase2 = new ArrayList<Alumno>();
 
-        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("clase.obj"))){
-            clase2=(ArrayList<Alumno>) ois.readObject();
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("clase.obj"))) {
+            clase2 = (ArrayList<Alumno>) ois.readObject();
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
@@ -51,8 +52,14 @@ public class Main {
         System.out.println(clase2);
 
         //Para convertir a json
-        var mapper = new ObjectMapper().writerWithDefaultPrettyPrinter();
+        //Para escribir a Json
+        //var mapper = new ObjectMapper().writerWithDefaultPrettyPrinter();
 
+        Clase dam2 = new Clase();
+        dam2.setAlumnos(clase);
+
+        var mapper = new ObjectMapper();
+/*
         //Creo...
         try {
             mapper.writeValue(new File("clase.json"),clase);//Para guardarlo en un archivo
@@ -60,19 +67,22 @@ public class Main {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }//Como almaceno en un archivo hago u  try/catch
-
-
-    }
-
-    private static void guardarClase(ArrayList<Alumno> clase) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("clase.obj"))) {
-            oos.writeObject(clase);
+*/
+        try {
+            mapper.writeValue(new File("clase.json"), dam2);//Para guardarlo en un archivo
+            System.out.println(mapper.writeValueAsString(clase));//Para imprimirlo por consola
         } catch (IOException e) {
-        throw new RuntimeException(e);
+            throw new RuntimeException(e);
+        }
+
+        try {
+            Clase dam2json = mapper.readValue(new File("clase.json"), Clase.class);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    private static void guardarClase(ArrayList<Alumno> clase) {
+        private static void guardarClase(ArrayList<Alumno> clase) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("clase.obj"))) {
             oos.writeObject(clase);
         } catch (IOException e) {
