@@ -72,6 +72,14 @@ public class Main {
         }
     }
 
+    private static void guardarClase(ArrayList<Alumno> clase) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("clase.obj"))) {
+            oos.writeObject(clase);
+        } catch (IOException e) {
+        throw new RuntimeException(e);
+        }
+    }
+
 
     public static void main2(String[] args) {
 
