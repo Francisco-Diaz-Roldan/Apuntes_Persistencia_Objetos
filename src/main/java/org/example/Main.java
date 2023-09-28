@@ -55,7 +55,8 @@ public class Main {
 
         //Creo...
         try {
-            mapper.writeValue(new File("clase.json"),clase);
+            mapper.writeValue(new File("clase.json"),clase);//Para guardarlo en un archivo
+            System.out.println(mapper.writeValueAsString(clase));//Para imprimirlo por consola
         } catch (IOException e) {
             throw new RuntimeException(e);
         }//Como almaceno en un archivo hago u  try/catch
